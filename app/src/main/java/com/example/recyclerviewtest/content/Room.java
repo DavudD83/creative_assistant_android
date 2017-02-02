@@ -20,18 +20,24 @@ public class Room extends RealmObject {
     @SerializedName("id")
     private String mId;
 
+    @SerializedName("image")
+    private String mImagePath;
+
     @SerializedName("objects")
     private RealmList<RealmString> mObjects ;
 
     public Room() {
     }
 
-    public Room(@NonNull String description, @NonNull String id, @NonNull RealmList<RealmString> objects) {
+    public Room(@NonNull String description, @NonNull String id, @NonNull RealmList<RealmString> objects,
+                @NonNull String imagePath) {
         mDescription = description;
 
         mId = id;
 
         mObjects = objects;
+
+        mImagePath = imagePath;
     }
 
     @NonNull
@@ -44,7 +50,8 @@ public class Room extends RealmObject {
         return mDescription;
     }
 
-    @NonNull public RealmList<RealmString> GetObjectList() { return mObjects; }
+    @NonNull
+    public RealmList<RealmString> GetObjectList() { return mObjects; }
 
     public void setDescription(String description) {
         mDescription = description;
@@ -53,4 +60,7 @@ public class Room extends RealmObject {
     public void setId(String id) { mId = id; }
 
     public void setObjects(RealmList<RealmString> objects) { mObjects = objects; }
+
+    @NonNull
+    public String getImagePath() {return mImagePath;}
 }

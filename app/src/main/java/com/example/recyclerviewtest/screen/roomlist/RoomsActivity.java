@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.recyclerviewtest.R;
 import com.example.recyclerviewtest.content.Room;
@@ -63,7 +64,7 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
 
     @Override
     public void showError() {
-        // HANDLE ERROR
+        Toast.makeText(this, "Some Problem", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -71,4 +72,5 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
 
     @Override
     public void hideLoading() { mLoadingView.hideLoading();}
+
 }
