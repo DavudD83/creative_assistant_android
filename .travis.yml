@@ -48,8 +48,7 @@ deploy:
   file: "${APK_PATH}"
   skip_cleanup: true
   on:
-    repo: dot-cat/creative_assistant_android
-    branch: travis_ci
+    tags: true
 before_install:
   - openssl aes-256-cbc -K $encrypted_c57facf09bea_key -iv $encrypted_c57facf09bea_iv
     -in .keystore.enc -out .keystore -d
