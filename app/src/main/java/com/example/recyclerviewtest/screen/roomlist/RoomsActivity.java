@@ -2,6 +2,7 @@ package com.example.recyclerviewtest.screen.roomlist;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,10 +21,14 @@ import butterknife.ButterKnife;
 import ru.arturvasilov.rxloader.LifecycleHandler;
 import ru.arturvasilov.rxloader.LoaderLifecycleHandler;
 
-public class RoomsActivity extends AppCompatActivity implements RoomsView, RoomsAdapter.OnItemClick {
+public class RoomsActivity extends AppCompatActivity implements RoomsView, RoomsAdapter.OnItemClick, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerVIew;
+
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     private LoadingView mLoadingView;
 
@@ -36,6 +41,11 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rooms);
         ButterKnife.bind(this);
+
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark,
+                android.R.color.holo_red_light,
+                android.R.color.holo_green_light);
 
         mLoadingView = LoadingDialog.view(getSupportFragmentManager());
 
@@ -73,4 +83,9 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
     @Override
     public void hideLoading() { mLoadingView.hideLoading();}
 
+    @Override
+    public void onRefresh() {
+        mPresenter.init();
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
 }
