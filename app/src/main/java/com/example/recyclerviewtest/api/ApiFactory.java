@@ -28,8 +28,6 @@ public final class ApiFactory {
 
     private static volatile ApiService sService;
 
-
-    //TODO
     private static Type token = new TypeToken<RealmList<RealmString>>(){}.getType();
     private static Gson gson =  new GsonBuilder()
             .setExclusionStrategies(new ExclusionStrategy() {

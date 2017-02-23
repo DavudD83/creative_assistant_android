@@ -18,21 +18,13 @@ import io.realm.rx.RealmObservableFactory;
 
 public class AppDelegate extends Application {
 
-    private static Context sContext;
-
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext = this;
 
         RealmConfiguration configuration = new RealmConfiguration.Builder(this)
                 .rxFactory(new RealmObservableFactory())
                 .build();
         Realm.setDefaultConfiguration(configuration);
-    }
-
-    @NonNull
-    public static Context getContext() {
-        return sContext;
     }
 }

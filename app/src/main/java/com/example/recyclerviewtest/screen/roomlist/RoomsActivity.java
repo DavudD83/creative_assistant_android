@@ -1,9 +1,11 @@
 package com.example.recyclerviewtest.screen.roomlist;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -29,7 +31,6 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-
     private LoadingView mLoadingView;
 
     private RoomsAdapter mAdapter;
@@ -49,7 +50,7 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
 
         mLoadingView = LoadingDialog.view(getSupportFragmentManager());
 
-        mRecyclerVIew.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerVIew.setLayoutManager(new GridLayoutManager(this, getCountOfColumns()));
 
         mAdapter = new RoomsAdapter(new ArrayList<>(), this);
 
@@ -87,5 +88,16 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
     public void onRefresh() {
         mPresenter.init();
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    private int getCountOfColumns() {
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return 3;
+
+        } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return 2;
+
+        } else
+            return 0;
     }
 }
