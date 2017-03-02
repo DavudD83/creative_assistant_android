@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RoomResponse {
 
-    @SerializedName("rooms")
+    @SerializedName("placements")
     private List<Room> rooms = new ArrayList<>();
 
     public RoomResponse(@NonNull List<Room> rooms) {

@@ -1,7 +1,6 @@
 package com.example.recyclerviewtest.repository;
 
 
-import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
 public final class RepositoryProvider {

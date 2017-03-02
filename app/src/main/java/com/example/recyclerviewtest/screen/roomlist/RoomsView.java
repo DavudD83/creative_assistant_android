@@ -8,7 +8,7 @@ import com.example.recyclerviewtest.screen.general.LoadingView;
 
 import java.util.List;
 
-public interface RoomsView extends LoadingView{
+public interface RoomsView extends LoadingView {
 
      void showRooms(@NonNull List<Room> rooms);
 

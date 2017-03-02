@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
@@ -14,6 +13,7 @@ import com.example.recyclerviewtest.R;
 import com.example.recyclerviewtest.content.Room;
 import com.example.recyclerviewtest.screen.general.LoadingDialog;
 import com.example.recyclerviewtest.screen.general.LoadingView;
+import com.example.recyclerviewtest.screen.roomDetail.RoomDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,8 @@ import butterknife.ButterKnife;
 import ru.arturvasilov.rxloader.LifecycleHandler;
 import ru.arturvasilov.rxloader.LoaderLifecycleHandler;
 
-public class RoomsActivity extends AppCompatActivity implements RoomsView, RoomsAdapter.OnItemClick, SwipeRefreshLayout.OnRefreshListener {
+public class RoomsActivity extends AppCompatActivity implements RoomsView, RoomsAdapter.OnItemClick,
+        SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerVIew;
@@ -62,31 +63,39 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
     }
 
     @Override
-    public void onItemClick(@NonNull Room room) { mPresenter.onItemClick(room);}
+    public void onItemClick(@NonNull Room room) {
+        mPresenter.onItemClick(room);
+    }
 
     @Override
     public void showRooms(@NonNull List<Room> rooms) {
-        mAdapter.ChangeDataSet(rooms); }
+        mAdapter.ChangeDataSet(rooms);
+    }
 
     @Override
     public void showRoomDetail(@NonNull Room room) {
-        //TODO
+        RoomDetailsActivity.start(this, room);
     }
 
     @Override
     public void showError() {
         Toast.makeText(this, "Some Problem", Toast.LENGTH_SHORT).show();
+        //TODO
     }
 
     @Override
-    public void showLoading() { mLoadingView.showLoading();}
+    public void showLoading() {
+        mLoadingView.showLoading();
+    }
 
     @Override
-    public void hideLoading() { mLoadingView.hideLoading();}
+    public void hideLoading() {
+        mLoadingView.hideLoading();
+    }
 
     @Override
     public void onRefresh() {
-        mPresenter.init();
+        mPresenter.reloadData();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

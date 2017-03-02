@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="room_request" type="id"/>
+    <item name="thing_request" type="id" />
+    <item name="action_request" type="id" />
+    <item name="reload_things" type="id" />
+    <item name="reload_rooms" type="id" />
 
 
 </resources>

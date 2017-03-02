@@ -2,11 +2,15 @@ package com.example.recyclerviewtest.repository;
 
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import com.example.recyclerviewtest.content.Message;
 import com.example.recyclerviewtest.content.RoomResponse;
+import com.example.recyclerviewtest.content.Thing;
+import com.example.recyclerviewtest.content.ThingResponse;
 import com.example.recyclerviewtest.utils.RxUtils;
 import com.example.recyclerviewtest.api.ApiFactory;
 import com.example.recyclerviewtest.content.Room;
@@ -32,6 +36,7 @@ public class DefaultApiRepository implements ApiRepository {
                     return Observable.just(rooms);
                 })
                 .onErrorResumeNext(throwable -> {
+
                     Realm realm = Realm.getDefaultInstance();
                     RealmResults<Room> rooms = realm.where(Room.class).findAll();
 
@@ -39,5 +44,36 @@ public class DefaultApiRepository implements ApiRepository {
                 })
                 .compose(RxUtils.async());
     }
+
+    @NonNull
+    @Override
+    public Observable<List<Thing>> things(String id) {
+        return ApiFactory.getApiService()
+                .things(id)
+                .map(ThingResponse::getThings)
+                .flatMap(things -> {
+                    Realm.getDefaultInstance().executeTransaction(realm -> {
+                        realm.insertOrUpdate(things);
+                    });
+                    return Observable.just(things);
+                })
+                .onErrorResumeNext(throwable -> {
+
+                    Realm realm = Realm.getDefaultInstance();
+                    RealmResults<Thing> things = realm.where(Thing.class).equalTo("placement", id).findAll();
+
+                    return Observable.just(things);
+                })
+                .compose(RxUtils.async());
+    }
+
+    @NonNull
+    @Override
+    public Observable<Message> action(@NonNull Message message) {
+        return ApiFactory.getApiService()
+                .action(message)
+                .compose(RxUtils.async());
+    }
+
 
 }

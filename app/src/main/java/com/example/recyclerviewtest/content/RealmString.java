@@ -13,8 +13,8 @@ public class RealmString extends RealmObject {
         mVar = var;
     }
 
-    public String getmVar() { return mVar; }
+    public String getVar() { return mVar; }
 
-    public void setmVar(String var) { mVar = var;}
+    public void setVar(String var) { mVar = var;}
 
 }

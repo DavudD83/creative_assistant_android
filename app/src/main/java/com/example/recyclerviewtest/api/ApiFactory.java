@@ -62,7 +62,6 @@ public final class ApiFactory {
             .create();
 
     private ApiFactory() {
-
     }
 
     @NonNull

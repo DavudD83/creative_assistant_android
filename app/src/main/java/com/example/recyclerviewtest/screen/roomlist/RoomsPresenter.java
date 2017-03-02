@@ -29,6 +29,15 @@ public class RoomsPresenter {
                 .subscribe(mRoomsView::showRooms, throwable -> mRoomsView.showError());
     }
 
-    public void onItemClick(@NonNull Room room) { mRoomsView.showRoomDetail(room); }
+    public void reloadData() {
+        RepositoryProvider.provideApiRepository()
+                .rooms()
+                .compose(mLifecycleHandler.reload(R.id.reload_rooms))
+                .subscribe(mRoomsView::showRooms, throwable -> mRoomsView.showError());
+    }
+
+    public void onItemClick(@NonNull Room room) {
+        mRoomsView.showRoomDetail(room);
+    }
 
 }

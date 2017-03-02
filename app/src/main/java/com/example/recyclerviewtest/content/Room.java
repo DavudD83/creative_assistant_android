@@ -1,9 +1,11 @@
 package com.example.recyclerviewtest.content;
 
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import ru.arturvasilov.rxloader.LifecycleHandler;
 
-public class Room extends RealmObject {
+public class Room extends RealmObject implements Serializable {
 
     @SerializedName("description")
     private String mDescription;
@@ -23,19 +25,14 @@ public class Room extends RealmObject {
     @SerializedName("image")
     private String mImagePath;
 
-    @SerializedName("objects")
-    private RealmList<RealmString> mObjects ;
-
     public Room() {
     }
 
-    public Room(@NonNull String description, @NonNull String id, @NonNull RealmList<RealmString> objects,
-                @NonNull String imagePath) {
+    public Room(@NonNull String description, @NonNull String id, @NonNull String imagePath) {
         mDescription = description;
 
         mId = id;
 
-        mObjects = objects;
 
         mImagePath = imagePath;
     }
@@ -50,16 +47,11 @@ public class Room extends RealmObject {
         return mDescription;
     }
 
-    @NonNull
-    public RealmList<RealmString> GetObjectList() { return mObjects; }
-
     public void setDescription(String description) {
         mDescription = description;
     }
 
     public void setId(String id) { mId = id; }
-
-    public void setObjects(RealmList<RealmString> objects) { mObjects = objects; }
 
     @NonNull
     public String getImagePath() {return mImagePath;}
