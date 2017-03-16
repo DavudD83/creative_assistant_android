@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     tools:context="com.example.recyclerviewtest.screen.roomDetail.RoomDetailsActivity">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/include2" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshDetails"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/include2">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewDetails"

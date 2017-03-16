@@ -17,6 +17,7 @@ public class Thing extends RealmObject{
     @SerializedName("description")
     private String mDescription;
 
+    @PrimaryKey
     @SerializedName("id")
     private String mId;
 
@@ -26,7 +27,6 @@ public class Thing extends RealmObject{
     @SerializedName("is_available")
     private Boolean mIsAvailable;
 
-    @PrimaryKey
     @SerializedName("placement")
     private String mPlacement;
 

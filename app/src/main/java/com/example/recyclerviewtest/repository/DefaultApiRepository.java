@@ -52,7 +52,7 @@ public class DefaultApiRepository implements ApiRepository {
                 .things(id)
                 .map(ThingResponse::getThings)
                 .flatMap(things -> {
-                    Realm.getDefaultInstance().executeTransaction(realm -> {
+                    Realm.getDefaultInstance().executeTransaction(realm ->{
                         realm.insertOrUpdate(things);
                     });
                     return Observable.just(things);
@@ -60,9 +60,9 @@ public class DefaultApiRepository implements ApiRepository {
                 .onErrorResumeNext(throwable -> {
 
                     Realm realm = Realm.getDefaultInstance();
-                    RealmResults<Thing> things = realm.where(Thing.class).equalTo("placement", id).findAll();
+                    RealmResults<Thing> things = realm.where(Thing.class).equalTo("mPlacement", id).findAll();
 
-                    return Observable.just(things);
+                    return Observable.just(realm.copyFromRealm(things));
                 })
                 .compose(RxUtils.async());
     }

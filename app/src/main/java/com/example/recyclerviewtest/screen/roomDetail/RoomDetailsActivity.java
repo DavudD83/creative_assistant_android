@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.recyclerviewtest.R;
@@ -27,9 +29,9 @@ import ru.arturvasilov.rxloader.LoaderLifecycleHandler;
 public class RoomDetailsActivity extends AppCompatActivity implements RoomDetailsView, RoomDetailsAdapter.OnItemChange,
         SwipeRefreshLayout.OnRefreshListener {
 
-    public final static String EXTRA_ROOM = "room";
+    private final static String EXTRA_ROOM = "room";
 
-    private Room room;
+    private Room mRoom;
 
     private LoadingView mLoadingView;
 
@@ -43,6 +45,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements RoomDetail
     @BindView(R.id.recyclerViewDetails)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
     public static void start(@NonNull Activity activity, @NonNull Room room) {
         Intent intent = new Intent(activity, RoomDetailsActivity.class);
         intent.putExtra(EXTRA_ROOM, room);
@@ -54,13 +59,19 @@ public class RoomDetailsActivity extends AppCompatActivity implements RoomDetail
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_details);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark,
                 android.R.color.holo_red_light,
                 android.R.color.holo_green_light);
 
-        room = (Room) getIntent().getSerializableExtra(EXTRA_ROOM);
+        mRoom = (Room) getIntent().getSerializableExtra(EXTRA_ROOM);
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(mRoom.GetDescription());
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         mLoadingView = LoadingDialog.view(getSupportFragmentManager());
 
@@ -71,7 +82,7 @@ public class RoomDetailsActivity extends AppCompatActivity implements RoomDetail
 
         LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
         mRoomDetailsPresenter = new RoomDetailsPresenter(lifecycleHandler, this);
-        mRoomDetailsPresenter.init(room.GetId());
+        mRoomDetailsPresenter.init(mRoom.GetId());
     }
 
     @Override
@@ -102,7 +113,19 @@ public class RoomDetailsActivity extends AppCompatActivity implements RoomDetail
     @Override
     public void onRefresh() {
 
-        mRoomDetailsPresenter.reloadData(room.GetId());
+        mRoomDetailsPresenter.reloadData(mRoom.GetId());
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

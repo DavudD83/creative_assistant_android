@@ -26,7 +26,7 @@ public class RoomDetailsHolder extends RecyclerView.ViewHolder {
     public void bind(@NonNull Thing thing, CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
 
         mSwitch.setText(thing.getId());
-        mSwitch.setClickable(thing.getIsAvailable());
+        mSwitch.setEnabled(thing.getIsAvailable());
         mSwitch.setChecked(thing.getIsActive());
 
         mSwitch.setOnCheckedChangeListener(onCheckedChangeListener);

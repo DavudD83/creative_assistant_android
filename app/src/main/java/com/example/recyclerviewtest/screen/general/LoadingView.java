@@ -6,5 +6,4 @@ public interface LoadingView {
     void showLoading();
 
     void hideLoading();
-
 }

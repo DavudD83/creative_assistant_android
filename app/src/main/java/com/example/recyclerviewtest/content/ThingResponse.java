@@ -12,7 +12,7 @@ public class ThingResponse {
     @SerializedName("things")
     private List<Thing> mThings = new ArrayList<>();
 
-    private ThingResponse(List<Thing> things) {
+    private ThingResponse(@NonNull List<Thing> things) {
         mThings = things;
     }
 

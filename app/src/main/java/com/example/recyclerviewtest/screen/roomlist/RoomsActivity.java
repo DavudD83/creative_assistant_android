@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.recyclerviewtest.R;
@@ -32,6 +33,9 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
     private LoadingView mLoadingView;
 
     private RoomsAdapter mAdapter;
@@ -43,6 +47,11 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rooms);
         ButterKnife.bind(this);
+
+        setSupportActionBar(mToolbar);
+
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle(getString(R.string.app_name));
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark,

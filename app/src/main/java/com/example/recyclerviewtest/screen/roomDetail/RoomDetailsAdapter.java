@@ -25,7 +25,6 @@ public class RoomDetailsAdapter extends RecyclerView.Adapter<RoomDetailsHolder> 
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
 
-
             Thing thing = (Thing) compoundButton.getTag();
             mOnItemChange.onItemChange(thing);
         }
