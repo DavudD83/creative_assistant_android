@@ -33,7 +33,7 @@ before_deploy:
   - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 app/build/outputs/apk/app-release-unsigned.apk
     creative_client_test -keystore $TRAVIS_BUILD_DIR/.keystore -storepass $storepass
     -keypass $keypass
-  - "${ANDROID_HOME}/build-tools/build-tools-${BUILD_TOOLS_VER}/zipalign 4 app/build/outputs/apk/app-release-unsigned.apk ${APK_PATH}"
+  - "${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VER}/zipalign 4 app/build/outputs/apk/app-release-unsigned.apk ${APK_PATH}"
 
 deploy:
   provider: releases
