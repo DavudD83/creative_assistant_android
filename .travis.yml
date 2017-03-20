@@ -3,6 +3,7 @@ jdk: oraclejdk8
 env:
   global:
   - ANDROID_TARGET="android-25"
+  - ANDROID_EMUL="android-22"
   - ANDROID_ABI="armeabi-v7a"
   - BUILD_TOOLS_VERSION="25.0.1"
   - BUILD_TOOLS="build-tools-${BUILD_TOOLS_VERSION}"
@@ -15,6 +16,7 @@ android:
   - platform-tools
   - ${BUILD_TOOLS}
   - ${ANDROID_TARGET}
+  - ${ANDROID_EMUL}
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
   licenses:
@@ -29,7 +31,7 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 before_script:
-  - echo no | android create avd --force -n test -t ${ANDROID_TARGET} --abi ${ANDROID_ABI}
+  - echo no | android create avd --force -n test -t ${ANDROID_EMUL} --abi ${ANDROID_ABI}
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
