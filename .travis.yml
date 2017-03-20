@@ -2,7 +2,7 @@ language: android
 jdk: oraclejdk8
 env:
   global:
-  - ANDROID_TARGET="android-24"
+  - ANDROID_TARGET="android-25"
   - ANDROID_ABI="armeabi-v7a"
   - BUILD_TOOLS_VERSION="25.0.1"
   - BUILD_TOOLS="build-tools-${BUILD_TOOLS_VERSION}"
