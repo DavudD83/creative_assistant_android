@@ -3,7 +3,7 @@ jdk: oraclejdk8
 env:
   global:
   - ANDROID_TARGET="android-25"
-  - ANDROID_ABI="armeabi-v7a"
+  - ANDROID_ABI="google_apis/x86"
   - BUILD_TOOLS_VERSION="25.0.1"
   - BUILD_TOOLS="build-tools-${BUILD_TOOLS_VERSION}"
   - APK_PATH="$HOME/creative_assistant_t${TRAVIS_BUILD_NUMBER}.apk"
