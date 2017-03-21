@@ -7,7 +7,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "space.dotcat.CreativeAssistant"
+        applicationId "space.dotcat.assistant"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
