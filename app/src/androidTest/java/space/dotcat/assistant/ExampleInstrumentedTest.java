@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("space.dotcat.CreativeAssistant", appContext.getPackageName());
+        assertEquals("space.dotcat.assistant", appContext.getPackageName());
     }
 }
