@@ -48,7 +48,8 @@ public class RoomDetailsPresenter {
         RepositoryProvider.provideApiRepository()
                 .action(message)
                 .compose(mLifecycleHandler.reload(R.id.action_request))
-                .subscribe(message1 -> {}, throwable -> mRoomDetailsView.showError());
+                .subscribe(message1 -> {},
+                        throwable -> mRoomDetailsView.showError());
     }
 
 

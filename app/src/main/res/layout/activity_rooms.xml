@@ -18,8 +18,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:overScrollMode="never" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

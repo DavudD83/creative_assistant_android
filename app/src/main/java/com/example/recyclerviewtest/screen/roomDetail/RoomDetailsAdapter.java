@@ -20,17 +20,15 @@ public class RoomDetailsAdapter extends RecyclerView.Adapter<RoomDetailsHolder> 
 
     private final OnItemChange mOnItemChange;
 
-    private final CompoundButton.OnCheckedChangeListener mOnItemChangeListener = new CompoundButton.OnCheckedChangeListener() {
+    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+        public void onClick(View view) {
 
-
-            Thing thing = (Thing) compoundButton.getTag();
+            Thing thing = (Thing) view.getTag();
             mOnItemChange.onItemChange(thing);
         }
     };
-
-
+    
     public RoomDetailsAdapter(@NonNull List<Thing> things, @NonNull OnItemChange onItemChange) {
 
         mThings = things;
@@ -60,8 +58,9 @@ public class RoomDetailsAdapter extends RecyclerView.Adapter<RoomDetailsHolder> 
 
         Thing thing = mThings.get(position);
 
-        holder.bind(thing, mOnItemChangeListener);
+        holder.bind(thing);
         holder.mSwitch.setTag(thing);
+        holder.mSwitch.setOnClickListener(mOnClickListener);
     }
 
     @Override
