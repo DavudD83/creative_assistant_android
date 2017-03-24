@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.CreativeAssistant.screen.roomlist.RoomsActivity">
+    tools:context="space.dotcat.assistant.screen.roomlist.RoomsActivity">
 
     <include layout="@layout/toolbar"
         android:id="@+id/include" />
