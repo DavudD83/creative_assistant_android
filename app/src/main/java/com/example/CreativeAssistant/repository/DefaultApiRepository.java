@@ -39,7 +39,11 @@ public class DefaultApiRepository implements ApiRepository {
                     Realm realm = Realm.getDefaultInstance();
                     RealmResults<Room> rooms = realm.where(Room.class).findAll();
 
-                    return Observable.just(realm.copyFromRealm(rooms));
+                    List<Room> resultRooms = realm.copyFromRealm(rooms);
+
+                    realm.close();
+
+                    return Observable.just(resultRooms);
                 })
                 .compose(RxUtils.async());
     }
@@ -61,7 +65,11 @@ public class DefaultApiRepository implements ApiRepository {
                     Realm realm = Realm.getDefaultInstance();
                     RealmResults<Thing> things = realm.where(Thing.class).equalTo("mPlacement", id).findAll();
 
-                    return Observable.just(realm.copyFromRealm(things));
+                    List<Thing> resultThings = realm.copyFromRealm(things);
+
+                    realm.close();
+
+                    return Observable.just(resultThings);
                 })
                 .compose(RxUtils.async());
     }
