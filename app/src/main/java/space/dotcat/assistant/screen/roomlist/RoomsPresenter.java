@@ -32,7 +32,7 @@ public class RoomsPresenter {
     public void reloadData() {
         RepositoryProvider.provideApiRepository()
                 .rooms()
-                .compose(mLifecycleHandler.reload(R.id.reload_rooms))
+                .compose(mLifecycleHandler.reload(R.id.room_request))
                 .subscribe(mRoomsView::showRooms, throwable -> mRoomsView.showError());
     }
 

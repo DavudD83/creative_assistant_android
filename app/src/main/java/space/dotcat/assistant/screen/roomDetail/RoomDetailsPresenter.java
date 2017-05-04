@@ -35,7 +35,7 @@ public class RoomDetailsPresenter {
     public void reloadData(@NonNull String id) {
         RepositoryProvider.provideApiRepository()
                 .things(id)
-                .compose(mLifecycleHandler.reload(R.id.reload_things))
+                .compose(mLifecycleHandler.reload(R.id.thing_request))
                 .subscribe(mRoomDetailsView::showThings, throwable -> mRoomDetailsView.showError());
     }
 
@@ -47,6 +47,8 @@ public class RoomDetailsPresenter {
 
         RepositoryProvider.provideApiRepository()
                 .action(message)
+                .doOnSubscribe(mRoomDetailsView::showLoading)
+                .doOnTerminate(mRoomDetailsView::hideLoading)
                 .compose(mLifecycleHandler.reload(R.id.action_request))
                 .subscribe(message1 -> {},
                         throwable -> mRoomDetailsView.showError());

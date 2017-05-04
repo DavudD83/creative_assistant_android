@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import space.dotcat.assistant.R;
@@ -28,13 +30,16 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
         SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerVIew;
+    RecyclerView mRecyclerView;
 
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+    @BindView(R.id.tv_error_message)
+    TextView mErrorMessage;
 
     private LoadingView mLoadingView;
 
@@ -60,11 +65,11 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
 
         mLoadingView = LoadingDialog.view(getSupportFragmentManager());
 
-        mRecyclerVIew.setLayoutManager(new GridLayoutManager(this, getCountOfColumns()));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, getCountOfColumns()));
 
         mAdapter = new RoomsAdapter(new ArrayList<>(), this);
 
-        mRecyclerVIew.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this,getSupportLoaderManager());
         mPresenter = new RoomsPresenter(lifecycleHandler, this);
@@ -78,7 +83,16 @@ public class RoomsActivity extends AppCompatActivity implements RoomsView, Rooms
 
     @Override
     public void showRooms(@NonNull List<Room> rooms) {
-        mAdapter.ChangeDataSet(rooms);
+
+        if (!rooms.isEmpty()) {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mErrorMessage.setVisibility(View.INVISIBLE);
+            mAdapter.ChangeDataSet(rooms);
+        } else {
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            mErrorMessage.setVisibility(View.VISIBLE);
+            mErrorMessage.setText(getString(R.string.error_empty_rooms));
+        }
     }
 
     @Override

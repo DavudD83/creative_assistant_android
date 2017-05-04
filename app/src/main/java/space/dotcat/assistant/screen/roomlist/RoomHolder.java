@@ -16,10 +16,10 @@ import butterknife.ButterKnife;
 
 public class RoomHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.text123)
+    @BindView(R.id.tv_roomName)
     TextView mRoomName;
 
-    @BindView(R.id.Image)
+    @BindView(R.id.iv_roomImage)
     ImageView mRoomPicture;
 
 
@@ -34,8 +34,9 @@ public class RoomHolder extends RecyclerView.ViewHolder {
 
         Picasso.with(mRoomPicture.getContext())
                 .load(room.getImagePath())
-                .resize(200,160)
+              //  .resize(200,160)
                 .noFade()
+                .fit()
                 .into(mRoomPicture);
     }
 }

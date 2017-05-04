@@ -5,7 +5,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "space.dotcat.assistant"
         minSdkVersion 16
@@ -50,5 +50,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'ru.arturvasilov:rx-loader:0.1.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 

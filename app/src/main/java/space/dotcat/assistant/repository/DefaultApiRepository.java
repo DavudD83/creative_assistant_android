@@ -28,10 +28,15 @@ public class DefaultApiRepository implements ApiRepository {
                 .rooms()
                 .map(RoomResponse::getRooms)
                 .flatMap(rooms -> {
-                    Realm.getDefaultInstance().executeTransaction(realm -> {
+
+                    Realm instance = Realm.getDefaultInstance();
+
+                    instance.executeTransaction(realm -> {
                         realm.delete(Room.class);
                         realm.insert(rooms);
                     });
+
+                    instance.close();
                     return Observable.just(rooms);
                 })
                 .onErrorResumeNext(throwable -> {
@@ -55,9 +60,14 @@ public class DefaultApiRepository implements ApiRepository {
                 .things(id)
                 .map(ThingResponse::getThings)
                 .flatMap(things -> {
-                    Realm.getDefaultInstance().executeTransaction(realm ->{
+
+                    Realm instance = Realm.getDefaultInstance();
+
+                    instance.executeTransaction(realm ->{
                         realm.insertOrUpdate(things);
                     });
+
+                    instance.close();
                     return Observable.just(things);
                 })
                 .onErrorResumeNext(throwable -> {
@@ -68,7 +78,6 @@ public class DefaultApiRepository implements ApiRepository {
                     List<Thing> resultThings = realm.copyFromRealm(things);
 
                     realm.close();
-
                     return Observable.just(resultThings);
                 })
                 .compose(RxUtils.async());
