@@ -40,8 +40,14 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 
+before_script:
+  - echo no | android create avd --force -n test -t ${ANDROID_EMUL} --abi ${ANDROID_ABI}
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
 script:
-  - "./gradlew build assembleDebug"
+  - "./gradlew build connectedCheck"
 
 before_deploy:
   - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 app/build/outputs/apk/app-release-unsigned.apk
