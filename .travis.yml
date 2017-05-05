@@ -37,8 +37,7 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 
-before_script:
-  - sdkmanager --list || true
+
 
 script:
   - "./gradlew build assembleDebug"
