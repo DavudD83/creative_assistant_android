@@ -22,6 +22,7 @@ android:
   - ${ANDROID_EMUL}
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_EMUL}
+  - extra-android-support
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
